@@ -10,8 +10,9 @@
   "author": "Andrew Mitchell, Jacob Hackman, Kainan Woodard",
   "license": "UNLICENSED",
   "dependencies": {
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
-    "path": "^0.12.7"
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
