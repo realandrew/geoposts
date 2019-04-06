@@ -24,12 +24,17 @@ app.get('/', function(req, res) {
 
 twitter.stream('statuses/filter', {locations: "-84.217003,39.727303,-83.937769,39.863267"},  function(stream) {
     stream.on('data', function(tweet) {
-      console.log(tweet.text);
+        if (tweet.coordinates != null) 
+        {
+            console.log(tweet.coordinates.coordinates);
+        } else {
+            console.log(tweet.place.bounding_box.coordinates);
+        }
     });
   
     stream.on('error', function(error) {
       console.log(error);
     });
-  });
+});
 
 app.listen(port, () => console.log(`Created by Andrew Mitchell, Jacob Hackman, Kainan Woodard.\nRunning Geoposts v` + appVersion + ` on port ${port} in ${app.settings.env} mode!`));
