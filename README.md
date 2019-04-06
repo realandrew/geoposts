@@ -6,4 +6,3 @@ Type npm start to run using nodemon (automatically restarts the server upon chan
 ## Authors
 * Andrew Mitchell
 * Jacob Hackman
-* Kainan Woodard

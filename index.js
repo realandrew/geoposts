@@ -18,6 +18,7 @@ var twitter = new Twitter({
 
 app.use(express.static('public'));
 
+var server = app.listen(port, () => console.log(`Created by Andrew Mitchell and Jacob Hackman.\nRunning Geoposts v` + appVersion + ` on port ${port} in ${app.settings.env} mode!`));
 app.get('/', function(req, res) {
     res.sendFile("index.html");
 });
