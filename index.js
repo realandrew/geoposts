@@ -19,6 +19,8 @@ var twitter = new Twitter({
 app.use(express.static('public'));
 
 var server = app.listen(port, () => console.log(`Created by Andrew Mitchell and Jacob Hackman.\nRunning Geoposts v` + appVersion + ` on port ${port} in ${app.settings.env} mode!`));
+var io = require('socket.io')(server);
+
 app.get('/', function(req, res) {
     res.sendFile("index.html");
 });
@@ -28,8 +30,10 @@ twitter.stream('statuses/filter', {locations: "-84.217003,39.727303,-83.937769,3
         if (tweet.coordinates != null) 
         {
             console.log(tweet.coordinates.coordinates);
+            io.emit("new precise tweet", { for: 'everyone', data: tweet.coordinates.coordinates});
         } else {
             console.log(tweet.place.bounding_box.coordinates);
+            io.emit("new loose tweet", { for: 'everyone', data: tweet.place.bounding_box.coordinates});
         }
     });
   
@@ -37,5 +41,3 @@ twitter.stream('statuses/filter', {locations: "-84.217003,39.727303,-83.937769,3
       console.log(error);
     });
 });
-
-app.listen(port, () => console.log(`Created by Andrew Mitchell, Jacob Hackman, Kainan Woodard.\nRunning Geoposts v` + appVersion + ` on port ${port} in ${app.settings.env} mode!`));
