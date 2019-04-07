@@ -75,3 +75,14 @@ map.on("click", function(e) {
       win.focus();
   })
 });
+
+var shown = false;
+document.addEventListener( 'visibilitychange' , function() {
+  if (document.hidden) {
+    if (!shown)
+    {
+      alert("Tweets only register while the window is in focus");
+      shown = true;
+    }
+  }
+}, false );
