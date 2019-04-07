@@ -16,7 +16,7 @@ var map = new ol.Map({
     ),  // Cordinates of New York's Town Hall
   });*/
   var vectorSource = new ol.source.Vector({
-    features: [marker]
+    features: []
   });
   var markerVectorLayer = new ol.layer.Vector({
     source: vectorSource,
