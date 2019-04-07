@@ -1,3 +1,6 @@
+var tweetCounter = document.getElementById("tweet-counter");
+var tweetCount = 0;
+
 var map = new ol.Map({
     target: 'map',
     layers: [
@@ -41,6 +44,8 @@ socket.on("new precise tweet", function(msg) {
       }))
     }));
     vectorSource.addFeature(marker2);
+    tweetCount++;
+    tweetCounter.innerText = "Tweets since tab opened: " + tweetCount;
 });
 
 socket.on("new loose tweet", function(msg) {
@@ -63,6 +68,8 @@ socket.on("new loose tweet", function(msg) {
       }))
     }));
     vectorSource.addFeature(marker2);
+    tweetCount++;
+    tweetCounter.innerText = "Tweets since tab opened: " + tweetCount;
 });
 
 function randomDoubleInRange(min, max) {

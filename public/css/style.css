@@ -8,8 +8,20 @@ body {
     overflow: hidden;    
 }
 
-#navTitle{
+#navTitle {
     display: inline-block;
     font-size: 36px;
     font-family: 'Anton', sans-serif;
+}
+
+#tweet-counter {
+    position: absolute;
+    top: 100;
+    bottom: 0;
+    left: 20px;
+    z-index: 1;
+    background-color: white;
+    opacity: 0.5;
+    padding: 3px;
+    border-radius: 15px;
 }
