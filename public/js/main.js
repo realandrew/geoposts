@@ -7,7 +7,7 @@ var map = new ol.Map({
     ],
     view: new ol.View({
       center: ol.proj.fromLonLat([-84.063085, 39.780713]),
-      zoom: 15
+      zoom: 10
     })
   });
   var marker = new ol.Feature({
@@ -32,18 +32,36 @@ socket.on("new precise tweet", function(msg) {
             ol.proj.fromLonLat([msg.data[0], msg.data[1]])
         ),
     });
+    marker2.setStyle(new ol.style.Style({
+      image: new ol.style.Icon(({
+          crossOrigin: 'anonymous',
+          src: 'images/PingTwitter.png',
+          scale: 0.1
+      }))
+    }));
     vectorSource.addFeature(marker2);
 });
 
 socket.on("new loose tweet", function(msg) {
     //console.log(msg.data);
     console.log("New tweet within area sw-long: " + msg.data[0][0][0] + " sw-lat: " + msg.data[0][0][1] + " ne-long: " + msg.data[0][1][0] + " ne-lat: " + msg.data[0][1][1]);
-    let geodata = [((msg.data[0][0][0] + msg.data[0][1][0]) / 2), ((msg.data[0][0][1] + msg.data[0][1][1]) / 2)];
+    let geodata = [randomDoubleInRange(msg.data[0][0][0], msg.data[0][1][0]), randomDoubleInRange(msg.data[0][0][1], msg.data[0][1][1])];
     console.log("Area midpoint: long: " + geodata[0] + " lat: " + geodata[1]);
     var marker2 = new ol.Feature({
         geometry: new ol.geom.Point(
             ol.proj.fromLonLat([geodata[0], geodata[1]])
         ),
     });
+    marker2.setStyle(new ol.style.Style({
+      image: new ol.style.Icon(({
+          crossOrigin: 'anonymous',
+          src: 'images/PingTwitter2.png',
+          scale: 0.1
+      }))
+    }));
     vectorSource.addFeature(marker2);
 });
+
+function randomDoubleInRange(min, max) {
+  return Math.random() < 0.5 ? ((1-Math.random()) * (max-min) + min) : (Math.random() * (max-min) + min);
+}
