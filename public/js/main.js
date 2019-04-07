@@ -10,11 +10,11 @@ var map = new ol.Map({
       zoom: 10
     })
   });
-  var marker = new ol.Feature({
+  /*var marker = new ol.Feature({
     geometry: new ol.geom.Point(
       ol.proj.fromLonLat([-74.006,40.7127])
     ),  // Cordinates of New York's Town Hall
-  });
+  });*/
   var vectorSource = new ol.source.Vector({
     features: [marker]
   });
