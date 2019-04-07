@@ -133,10 +133,15 @@ function addNewTweetToList(avatar_url, username, text, tweet_url)
   let tweetHeader = document.createElement("div");
   tweetHeader.classList.add("tweet-header");
   subtweet.appendChild(tweetHeader);
+  let subcontainer1 = document.createElement("div");
+  subcontainer1.classList.add("subcontainer");
   let tweetNum = document.createElement("h1");
   tweetNum.classList.add("tweet-num");
   tweetNum.innerText = "#" + tweetNumber;
-  tweetHeader.appendChild(tweetNum);
+  tweetHeader.appendChild(subcontainer1);
+  subcontainer1.appendChild(tweetNum);
+  let subcontainer2 = document.createElement("div");
+  subcontainer2.classList.add("subcontainer");
   let tweetUser = document.createElement("h1");
   tweetUser.classList.add("tweet-user");
   if (username != null)
@@ -145,7 +150,8 @@ function addNewTweetToList(avatar_url, username, text, tweet_url)
   } else {
     tweetUser.innerText = "Error retrieving username";
   }
-  tweetHeader.appendChild(tweetUser);
+  tweetHeader.appendChild(subcontainer2);
+  subcontainer2.appendChild(tweetUser);
   let tweetText = document.createElement("p");
   tweetText.classList.add("tweet-text");
   if (text != null) {

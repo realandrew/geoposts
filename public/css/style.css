@@ -1,5 +1,12 @@
+html {
+    height: 100%;
+}
+
 body {
     background-color: rgb(65, 65, 65);
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Add a black background color to the top navigation */
@@ -79,13 +86,21 @@ body {
 }
 
 /* Tweet Stuff */
-#tweets-container {
+.tweets-outer-container {
+    flex: 1;
+    display: flex;
+    overflow: auto;
     border: 5px solid #212121;
-    max-height: 500px;
+    height: 500px;
+}
+
+#tweets-container {
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
-    justify-content: flex-start;
+    flex: 1;
+    min-height: min-content;
+    display: flex;
 }
 
 .tweet {
@@ -95,35 +110,94 @@ body {
     border-right: none;
     border-top: 3px solid white;
     border-bottom: 3px solid white;
-    display: flex;
-    justify-content: flex-start;
     max-height: 125px;
     text-decoration: none;
     color: aliceblue;
+    position: relative;
+}
+
+.avatar-container {
+    display: inline-block;
+    padding: 0;
 }
 
 .tweet-avatar {
     height: 125px;
     width: 125px;
+    padding: 0;
 }
 
 .subtweet {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 0 20px;
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 140px);
+    padding: 0;
+    margin: 0;
+    align-items: center;
 }
 
-.tweet-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+.subcontainer {
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    margin: -10px;
+    width: 40%;
 }
 
 .tweet-num {
+    text-align: center;
     font-size: 18px;
 }
 
 .tweet-user {
+    text-align: center;
     font-size: 18px;
+}
+
+.tweet-text {
+    text-align: center;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        background-color: red;
+    }
+
+    .tweet-num {
+        text-align: center;
+        font-size: 16px;
+    }
+    
+    .tweet-user {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .tweet-text {
+        text-align: center;
+        font-size: 11px;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    body {
+        background-color: lightblue;
+    }
+
+    .tweet-num {
+        text-align: center;
+        font-size: 14px;
+    }
+    
+    .tweet-user {
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .tweet-text {
+        text-align: center;
+        font-size: 10px;
+    }
 }
