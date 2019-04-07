@@ -32,6 +32,7 @@ socket.on("new precise tweet", function(msg) {
             ol.proj.fromLonLat([msg.data[0], msg.data[1]])
         ),
     });
+    marker2.set("url", msg.url);
     marker2.setStyle(new ol.style.Style({
       image: new ol.style.Icon(({
           crossOrigin: 'anonymous',
@@ -47,11 +48,13 @@ socket.on("new loose tweet", function(msg) {
     console.log("New tweet within area sw-long: " + msg.data[0][0][0] + " sw-lat: " + msg.data[0][0][1] + " ne-long: " + msg.data[0][1][0] + " ne-lat: " + msg.data[0][1][1]);
     let geodata = [randomDoubleInRange(msg.data[0][0][0], msg.data[0][1][0]), randomDoubleInRange(msg.data[0][0][1], msg.data[0][1][1])];
     console.log("Area midpoint: long: " + geodata[0] + " lat: " + geodata[1]);
+    console.log(msg.url);
     var marker2 = new ol.Feature({
         geometry: new ol.geom.Point(
             ol.proj.fromLonLat([geodata[0], geodata[1]])
         ),
     });
+    marker2.set("url", msg.url);
     marker2.setStyle(new ol.style.Style({
       image: new ol.style.Icon(({
           crossOrigin: 'anonymous',
@@ -65,3 +68,10 @@ socket.on("new loose tweet", function(msg) {
 function randomDoubleInRange(min, max) {
   return Math.random() < 0.5 ? ((1-Math.random()) * (max-min) + min) : (Math.random() * (max-min) + min);
 }
+
+map.on("click", function(e) {
+  map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+      var win = window.open(feature.get("url"), '_blank');
+      win.focus();
+  })
+});

@@ -30,10 +30,10 @@ twitter.stream('statuses/filter', {locations: "-84.217003,39.727303,-83.937769,3
         if (tweet.coordinates != null) 
         {
             console.log(tweet.coordinates.coordinates);
-            io.emit("new precise tweet", { for: 'everyone', data: tweet.coordinates.coordinates});
+            io.emit("new precise tweet", { for: 'everyone', data: tweet.coordinates.coordinates, url: "https://twitter.com/" + tweet.user.id_str + "/statuses/" + tweet.id_str});
         } else {
             console.log(tweet.place.bounding_box.coordinates);
-            io.emit("new loose tweet", { for: 'everyone', data: tweet.place.bounding_box.coordinates});
+            io.emit("new loose tweet", { for: 'everyone', data: tweet.place.bounding_box.coordinates, url: "https://twitter.com/" + tweet.user.id_str + "/statuses/" + tweet.id_str});
         }
     });
   
