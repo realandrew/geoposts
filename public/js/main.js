@@ -28,7 +28,6 @@ var map = new ol.Map({
 
 var socket = io();
 socket.on("new precise tweet", function(msg) {
-    //console.log(msg.data);
     console.log("New tweet from: long: " + msg.data[0] + " lat: " + msg.data[1]);
     var marker2 = new ol.Feature({
         geometry: new ol.geom.Point(
@@ -46,11 +45,10 @@ socket.on("new precise tweet", function(msg) {
     vectorSource.addFeature(marker2);
     tweetCount++;
     tweetCounter.innerText = "Tweets: " + tweetCount;
-    addNewTweetToList(msg.avatar, msg.profileName, msg.tweetContent);
+    addNewTweetToList(msg.avatar, msg.profileName, msg.tweetContent, marker2.get("url"));
 });
 
 socket.on("new loose tweet", function(msg) {
-    //console.log(msg.data);
     console.log("New tweet within area sw-long: " + msg.data[0][0][0] + " sw-lat: " + msg.data[0][0][1] + " ne-long: " + msg.data[0][1][0] + " ne-lat: " + msg.data[0][1][1]);
     let geodata = [randomDoubleInRange(msg.data[0][0][0], msg.data[0][1][0]), randomDoubleInRange(msg.data[0][0][1], msg.data[0][1][1])];
     console.log("Area midpoint: long: " + geodata[0] + " lat: " + geodata[1]);
@@ -71,7 +69,7 @@ socket.on("new loose tweet", function(msg) {
     vectorSource.addFeature(marker2);
     tweetCount++;
     tweetCounter.innerText = "Tweets: " + tweetCount;
-    addNewTweetToList(msg.avatar, msg.profileName, msg.tweetContent);
+    addNewTweetToList(msg.avatar, msg.profileName, msg.tweetContent, marker2.get("url"));
 });
 
 function randomDoubleInRange(min, max) {
@@ -112,6 +110,7 @@ function addNewTweetToList(avatar_url, username, text, tweet_url)
 {
   let tweet = document.createElement("a");
   tweet.classList.add("tweet");
+  tweet.id = "tweet-" + tweetNumber;
   if (tweet_url != null)
   {
     tweet.href = tweet_url;
@@ -157,6 +156,5 @@ function addNewTweetToList(avatar_url, username, text, tweet_url)
   subtweet.appendChild(tweetText);
   
   document.getElementById("tweets-container").appendChild(tweet);
-
-  tweetNumber++;
+  return tweetNumber++;
 }

@@ -81,8 +81,11 @@ body {
 /* Tweet Stuff */
 #tweets-container {
     border: 5px solid #212121;
-    max-height: 1000px;
+    max-height: 500px;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
 }
 
 .tweet {
