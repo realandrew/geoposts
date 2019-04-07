@@ -45,7 +45,8 @@ socket.on("new precise tweet", function(msg) {
     }));
     vectorSource.addFeature(marker2);
     tweetCount++;
-    tweetCounter.innerText = "Tweets since tab opened: " + tweetCount;
+    tweetCounter.innerText = "Tweets: " + tweetCount;
+    addNewTweetToList(msg.avatar, msg.profileName, msg.tweetContent);
 });
 
 socket.on("new loose tweet", function(msg) {
@@ -69,7 +70,8 @@ socket.on("new loose tweet", function(msg) {
     }));
     vectorSource.addFeature(marker2);
     tweetCount++;
-    tweetCounter.innerText = "Tweets since tab opened: " + tweetCount;
+    tweetCounter.innerText = "Tweets: " + tweetCount;
+    addNewTweetToList(msg.avatar, msg.profileName, msg.tweetContent);
 });
 
 function randomDoubleInRange(min, max) {
@@ -84,7 +86,7 @@ map.on("click", function(e) {
 });
 
 var shown = false;
-document.addEventListener( 'visibilitychange' , function() {
+document.addEventListener('visibilitychange' , function() {
   if (document.hidden) {
     if (!shown)
     {
@@ -92,4 +94,69 @@ document.addEventListener( 'visibilitychange' , function() {
       shown = true;
     }
   }
-}, false );
+}, false);
+
+function changeMapKey()
+{
+  let key = document.getElementById("map-key-content");
+  if (key.style.display == "none")
+  {
+    key.style.display = "block";
+  } else {
+    key.style.display = "none";
+  }
+}
+
+var tweetNumber = 1;
+function addNewTweetToList(avatar_url, username, text, tweet_url)
+{
+  let tweet = document.createElement("a");
+  tweet.classList.add("tweet");
+  if (tweet_url != null)
+  {
+    tweet.href = tweet_url;
+    tweet.target = "_blank";
+  } else {
+    tweet.href = "#";
+  }
+  let avatar = document.createElement("img");
+  if (avatar_url != null)
+  {
+    avatar.src = avatar_url;
+  } else {
+    avatar.src = "images/default-avatar.jpg";
+  }
+  avatar.classList.add("tweet-avatar");
+  tweet.appendChild(avatar);
+  let subtweet = document.createElement("div");
+  subtweet.classList.add("subtweet");
+  tweet.appendChild(subtweet);
+  let tweetHeader = document.createElement("div");
+  tweetHeader.classList.add("tweet-header");
+  subtweet.appendChild(tweetHeader);
+  let tweetNum = document.createElement("h1");
+  tweetNum.classList.add("tweet-num");
+  tweetNum.innerText = "#" + tweetNumber;
+  tweetHeader.appendChild(tweetNum);
+  let tweetUser = document.createElement("h1");
+  tweetUser.classList.add("tweet-user");
+  if (username != null)
+  {
+    tweetUser.innerText = username;
+  } else {
+    tweetUser.innerText = "Error retrieving username";
+  }
+  tweetHeader.appendChild(tweetUser);
+  let tweetText = document.createElement("p");
+  tweetText.classList.add("tweet-text");
+  if (text != null) {
+    tweetText.innerText = text;
+  } else {
+    tweetText.innerText = "Error retrieving tweet content";
+  }
+  subtweet.appendChild(tweetText);
+  
+  document.getElementById("tweets-container").appendChild(tweet);
+
+  tweetNumber++;
+}
