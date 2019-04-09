@@ -1,14 +1,10 @@
 const express = require("express");
-var Twitter = require('twitter');
-var helmet = require('helmet');
-var cors = require('cors');
+var Twitter = require("twitter");
 
 // Load environment variables
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
-app.use(helmet());
 
 const port = 3000;
 const appVersion = require('./package.json').version;
@@ -29,7 +25,8 @@ app.get('/', function(req, res) {
     res.sendFile("index.html");
 });
 
-twitter.stream('statuses/filter', {locations: "-84.217003,39.727303,-83.937769,39.863267"},  function(stream) {
+// Old bounding box: {locations: "-84.217003,39.727303,-83.937769,39.863267"}
+twitter.stream('statuses/filter', {locations: "-84.426367,39.585004,-83.957556,39.935918"},  function(stream) {
     stream.on('data', function(tweet) {
         if (tweet.coordinates != null) 
         {
