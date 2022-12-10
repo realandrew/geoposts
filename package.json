@@ -11,7 +11,7 @@
   "license": "GPL-3.0-only",
   "dependencies": {
     "dotenv": "^7.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "ol": "^5.3.1",
     "socket.io": "^2.4.0",
     "twitter": "^1.7.1"
